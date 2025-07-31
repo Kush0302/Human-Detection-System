@@ -1,0 +1,17 @@
+# Python / FastAPI ignores
+__pycache__/
+*.py[cod]
+*.sqlite3
+venv/
+env/
+.env
+.DS_Store
+
+# VS Code settings
+.vscode/
+
+# Logs
+*.log
+*.pt
+.env.local
+
