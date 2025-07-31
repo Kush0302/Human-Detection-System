@@ -59,6 +59,10 @@ npm start
 🖼️ Sample Result
 
 
+<img src="https://github.com/Kush0302/Human-Detection-System/blob/main/frontend/public/Sample.png" alt="Sample Output" width="500"/>
+
+
+
 ## 📌 TODOs
 
 - [ ] Add webcam support  
