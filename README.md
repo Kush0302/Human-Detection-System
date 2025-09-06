@@ -65,7 +65,6 @@ npm start
 
 ## 📌 TODOs
 
-- [ ] Add webcam support  
 - [ ] Deploy to cloud (Render/Vercel)  
 - [ ] Add logging or CSV export of results  
 
