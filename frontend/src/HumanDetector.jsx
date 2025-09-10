@@ -47,7 +47,17 @@ function HumanDetector() {
   };
 
   return (
-    <div style={{ textAlign: "center", padding: "30px" }}>
+    <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "flex-start",
+      alignItems: "center",
+      height: "100vh", // full screen height
+      width: "100vw",  // full screen width
+      backgroundColor: "#222",
+    }}
+  >
       <h1 style={{ color: "#fff" }}>Human Detector</h1>
 
       <input type="file" accept="image/*" onChange={onFileChange} />
