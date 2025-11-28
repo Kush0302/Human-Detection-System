@@ -2,9 +2,12 @@ from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import StreamingResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
-import cv2
-from ultralytics import YOLO
+import cv2 
+import os
 import io
+from ultralytics import YOLO
+from database import log_event
+from datetime import datetime
 
 app = FastAPI()
 
@@ -36,6 +39,8 @@ async def detect_image(file: UploadFile = File(...)):
     class_ids = results[0].boxes.cls.tolist() if results[0].boxes else []
     print("All class IDs:", class_ids)
 
+    max_conf=0.0
+
     #count 'person' class (class 0)
     person_count = sum(1 for cls in class_ids if int(cls) == 0)
     print("Person count:", person_count)
@@ -52,6 +57,12 @@ async def detect_image(file: UploadFile = File(...)):
     #if no person detected, return JSON
     if person_count == 0:
         return JSONResponse(content={"message": "No human detected", "count": 0})
+    
+    timestamp=datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    os.makedirs("captures",exist_ok=True)
+    file_path=f"captures/{timestamp}.jpg"
+    cv2.imwrite(file_path,img)
+    log_event(timestamp, file_path, person_count, max_conf)
 
     #encode image with bounding boxes
     _, encoded_img = cv2.imencode(".jpg", img)
@@ -59,5 +70,6 @@ async def detect_image(file: UploadFile = File(...)):
     #stream back image with person count in headers
     response = StreamingResponse(io.BytesIO(encoded_img.tobytes()), media_type="image/jpeg")
     response.headers["X-Human-Count"] = str(person_count)
+    response.headers["X-Confidence"] = str(max_conf)
 
     return response
