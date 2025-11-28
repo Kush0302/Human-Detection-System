@@ -1,17 +1,34 @@
-# Python / FastAPI ignores
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+detections.db
+
+# Python
 __pycache__/
 *.py[cod]
-*.sqlite3
+*$py.class
+*.so
+.Python
+backend/venv/
+backend/__pycache__/
 venv/
 env/
-.env
-.DS_Store
 
-# VS Code settings
-.vscode/
+# React/Node
+frontend/node_modules/
+frontend/build/
+frontend/.env
 
-# Logs
-*.log
+# Model files (these can be large)
 *.pt
-.env.local
+yolov8n.pt
 
+# Captures folder (detection results)
+backend/captures/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
