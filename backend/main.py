@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import StreamingResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
@@ -6,8 +6,10 @@ import cv2
 import os
 import io
 from ultralytics import YOLO
-from database import log_event
+from database import log_event, get_all_detections, get_detection_stats
 from datetime import datetime
+import logging
+from typing import Optional
 
 app = FastAPI()
 
